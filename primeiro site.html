@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServAI — Assistente Inteligente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0014;
+      --bg-gradient: linear-gradient(135deg, #2a004f, #6d00b6, #a74fff);
+      --accent: #b46fff;
+      --accent-hover: #c78aff;
+      --text: #f1e6ff;
+      --text-muted: rgba(255,255,255,0.7);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at 20% 20%, #1b002a, #050009 80%);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* ======= TELA INICIAL ======= */
+    .welcome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(180,111,255,0.05), rgba(0,0,0,0.2));
+      backdrop-filter: blur(8px);
+      animation: fadeIn 1.2s ease;
+    }
+    .logo {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: var(--bg-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(164,77,255,0.4);
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+    .start-btn {
+      font-size: 1rem;
+      font-weight: 600;
+      background: var(--bg-gradient);
+      color: #fff;
+      padding: 14px 34px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(164,77,255,0.4);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .start-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 30px rgba(164,77,255,0.7);
+      background-position: right center;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* ======= INTERFACE DA IA ======= */
+    .chat {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      background: #070010;
+      background-image: radial-gradient(circle at 10% 10%, #2a004f30, transparent 60%);
+      animation: fadeIn 1s ease forwards;
+    }
+    .chat.active { display: flex; }
+
+    header {
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 18px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(140,70,255,0.2);
+    }
+    .chat-logo {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    .chat-buttons button {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text-muted);
+      margin-left: 12px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .chat-buttons button:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+      box-shadow: 0 0 10px rgba(180,111,255,0.3);
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .message {
+      align-self: flex-start;
+      max-width: 60%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 0 12px rgba(120,40,255,0.2);
+    }
+
+    footer {
+      padding: 18px 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+    input[type="text"] {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(180,111,255,0.3);
+    }
+    .send-btn {
+      background: var(--bg-gradient);
+      border: none;
+      color: white;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 18px rgba(180,111,255,0.3);
+    }
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(180,111,255,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TELA INICIAL -->
+  <section class="welcome" id="welcome">
+    <div class="logo">ServAI</div>
+    <div class="subtitle">Bem-vindo à ServAI — sua assistente inteligente do futuro.</div>
+    <button class="start-btn" id="startBtn">Iniciar</button>
+  </section>
+
+  <!-- INTERFACE DE CHAT -->
+  <section class="chat" id="chatSection">
+    <header>
+      <div class="chat-logo">ServAI — Geradora de Código</div>
+      <div class="chat-buttons">
+        <button id="newCode">Novo código</button>
+        <button id="clearChat">Limpar chat</button>
+      </div>
+    </header>
+
+    <div class="chat-box" id="chatBox">
+      <div class="message">Olá! Sou a ServAI. Digite uma mensagem e pressione Enviar para simular uma conversa.</div>
+    </div>
+
+    <footer>
+      <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
+      <button class="send-btn" id="sendBtn">Enviar</button>
+    </footer>
+  </section>
+
+  <script>
+    // Transição da tela inicial para o chat
+    const startBtn = document.getElementById('startBtn');
+    const welcome = document.getElementById('welcome');
+    const chat = document.getElementById('chatSection');
+    startBtn.addEventListener('click', () => {
+      welcome.style.display = 'none';
+      chat.classList.add('active');
+    });
+
+    // Enviar mensagens fictícias
+    const sendBtn = document.getElementById('sendBtn');
+    const userInput = document.getElementById('userInput');
+    const chatBox = document.getElementById('chatBox');
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (text === '') return;
+      const msg = document.createElement('div');
+      msg.classList.add('message');
+      msg.textContent = text;
+      msg.style.alignSelf = 'flex-end';
+      msg.style.background = 'linear-gradient(135deg,#6b00ff33,#b46fff33)';
+      chatBox.appendChild(msg);
+      userInput.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Botões de controle
+    document.getElementById('clearChat').addEventListener('click', () => {
+      chatBox.innerHTML = '<div class="message">Chat limpo. Envie uma nova mensagem.</div>';
+    });
+
+    document.getElementById('newCode').addEventListener('click', () => {
+      const tip = document.createElement('div');
+      tip.classList.add('message');
+      tip.textContent = "Simulação: ServAI pronta para gerar novo código.";
+      chatBox.appendChild(tip);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+  </script>
+</body>
+</html>
