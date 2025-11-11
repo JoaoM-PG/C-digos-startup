@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Distributed Cloud</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Green Distributed Cloud</div>
+    <nav>
+      <a href="#home">Início</a>
+      <a href="#about">Sobre</a>
+      <a href="#benefits">Benefícios</a>
+      <a href="#join">Participar</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Computação Sustentável e Descentralizada</h1>
+      <p>Compartilhe recursos ociosos do seu computador e apoie um futuro mais limpo com tecnologia verde.</p>
+      <button id="joinBtn" class="btn-primary">Conectar Agora</button>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>O que é a Green Distributed Cloud?</h2>
+    <p>É uma rede que conecta computadores ao redor do mundo, formando uma nuvem descentralizada e sustentável. Enquanto você ganha créditos, sua máquina ajuda a reduzir o consumo global de energia em data centers.</p>
+  </section>
+
+  <section id="benefits" class="benefits">
+    <div class="benefit-card">
+      <h3>Computação Compartilhada</h3>
+      <p>Utilize recursos ociosos de forma inteligente e colaborativa.</p>
+    </div>
+    <div class="benefit-card">
+      <h3>Eficiência Energética</h3>
+      <p>Otimize o uso de energia com uma infraestrutura limpa e descentralizada.</p>
+    </div>
+    <div class="benefit-card">
+      <h3>Ganhos Sustentáveis</h3>
+      <p>Receba benefícios por contribuir para o crescimento de uma nuvem verde.</p>
+    </div>
+  </section>
+
+  <section id="join" class="join">
+    <h2>Participe da Revolução Verde</h2>
+    <p>Transforme o poder do seu computador em impacto positivo.</p>
+    <button id="connectBtn" class="btn-glow">Participar Agora</button>
+  </section>
+
+  <footer>
+    <p>© 2025 Green Distributed Cloud — Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const joinBtn = document.getElementById('joinBtn');
+  const connectBtn = document.getElementById('connectBtn');
+
+  joinBtn.addEventListener('click', () => {
+    joinBtn.textContent = "Conectando...";
+    joinBtn.disabled = true;
+    document.body.style.transition = "background 1s ease";
+    document.body.style.background = "linear-gradient(135deg, #e0ccff, #ffffff)";
+
+    setTimeout(() => {
+      joinBtn.textContent = "Conectado com sucesso";
+      joinBtn.classList.add('btn-glow');
+    }, 2000);
+  });
+
+  connectBtn.addEventListener('click', () => {
+    connectBtn.textContent = "Conectado à rede";
+    connectBtn.style.background = "#4B0082";
+    connectBtn.style.boxShadow = "0 0 50px rgba(102, 0, 255, 1)";
+  });
+});
+
+
+
+
+
+
+
+
+/* ======== RESET ======== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  color: #111;
+  overflow-x: hidden;
+}
+
+/* ======== NAVBAR ======== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(128, 0, 255, 0.2);
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #6600ff;
+  letter-spacing: 1px;
+}
+
+.navbar nav a {
+  margin-left: 2rem;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.navbar nav a:hover {
+  color: #6600ff;
+}
+
+/* ======== HERO SECTION ======== */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 50%, rgba(102,0,255,0.1), transparent 70%);
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  color: #111;
+}
+
+.hero-content p {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  padding: 1rem 2.5rem;
+  background: #6600ff;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(102, 0, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(102, 0, 255, 0.8);
+}
+
+/* ======== ABOUT ======== */
+.about {
+  padding: 6rem 3rem;
+  background: #f9f9ff;
+  text-align: center;
+}
+
+.about h2 {
+  color: #6600ff;
+  margin-bottom: 1rem;
+}
+
+.about p {
+  max-width: 800px;
+  margin: auto;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ======== BENEFITS ======== */
+.benefits {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 6rem 2rem;
+  background: #fff;
+}
+
+.benefit-card {
+  background: rgba(102, 0, 255, 0.05);
+  border: 1px solid rgba(102, 0, 255, 0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px rgba(102, 0, 255, 0.2);
+}
+
+.benefit-card h3 {
+  color: #6600ff;
+  margin-bottom: 1rem;
+}
+
+/* ======== JOIN ======== */
+.join {
+  padding: 6rem 3rem;
+  text-align: center;
+  background: radial-gradient(circle at 50% 50%, rgba(102,0,255,0.1), transparent 70%);
+}
+
+.btn-glow {
+  padding: 1rem 3rem;
+  background: #6600ff;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 20px rgba(102, 0, 255, 0.6);
+}
+
+.btn-glow:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(102, 0, 255, 1);
+}
+
+/* ======== FOOTER ======== */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  color: #555;
+}
+
+
+
+
+
+
+
+
+    # Green Distributed Cloud — Futuristic Demo
+
+### Estrutura:
+- index.html → página principal  
+- style.css → estilos  
+- script.js → interações  
+- README.md → instruções
+
+### Como testar:
+1. Baixe ou clone o projeto.
+2. Abra `index.html` no navegador.
+
+> Este é um protótipo de interface — sem backend.
