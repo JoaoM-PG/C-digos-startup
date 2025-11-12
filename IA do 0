@@ -1,0 +1,90 @@
+import os
+import time
+import json
+import google.generativeai as genai
+
+# ========== CONFIGURAÇÃO ==========
+# 🔒 Sua chave de API (recomendado: guardar em variável de ambiente)
+API_KEY = os.environ.get("GENAI_API_KEY") or "AIzaSyBb73Pk1KSM8WtNiqrU32oXhmYD00aK4lE"
+
+# Configure a API
+genai.configure(api_key=API_KEY)
+
+# Modelo — troque se o seu listar outro nome (veja abaixo como listar)
+MODEL_NAME = "models/gemini-2.5-flash"
+
+
+# Arquivo de histórico
+HISTORY_FILE = "conversa_history.json"
+
+
+# ========== FUNÇÕES ==========
+def carregar_history():
+    """Carrega o histórico salvo"""
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []
+    return []
+
+
+def salvar_history(history):
+    """Salva o histórico da conversa"""
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+
+
+def gerar_resposta(prompt, max_retries=2):
+    """Gera uma resposta da IA usando o modelo configurado"""
+    tries = 0
+    while tries <= max_retries:
+        try:
+            model = genai.GenerativeModel(MODEL_NAME)
+            response = model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            tries += 1
+            if tries > max_retries:
+                return f"❌ Erro ao conectar com a API: {e}"
+            time.sleep(1 + tries)
+
+
+# ========== CHAT PRINCIPAL ==========
+def main():
+    history = carregar_history()
+    print("🤖 IA online iniciada. Digite 'sair' para encerrar.\n")
+
+    while True:
+        try:
+            user = input("Você: ").strip()
+        except (KeyboardInterrupt, EOFError):
+            print("\nIA: Até mais!")
+            salvar_history(history)
+            break
+
+        if not user:
+            continue
+
+        if user.lower() in ("sair", "exit", "quit"):
+            print("IA: Até mais!")
+            salvar_history(history)
+            break
+
+        history.append({"role": "user", "content": user})
+
+        resposta = gerar_resposta(user)
+        print("IA:", resposta)
+
+        history.append({"role": "assistant", "content": resposta})
+
+        # Limita tamanho do histórico
+        if len(history) > 40:
+            history = history[-40:]
+
+        salvar_history(history)
+
+
+if __name__ == "__main__":
+    main()
